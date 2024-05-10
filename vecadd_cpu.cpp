@@ -22,7 +22,7 @@ int main(void)
     y[i] = 2.0f;
   }
 
-  // Run kernel on 1M elements on the CPU
+  // Run kernel on 512M elements on the CPU
   // Start the timer
   auto start = std::chrono::high_resolution_clock::now();
   
