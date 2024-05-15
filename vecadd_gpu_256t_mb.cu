@@ -42,5 +42,7 @@ int main(void)
   cudaFree(x);
   cudaFree(y);
   
+  std::cout << "Number of thread blocks: " << numBlocks << std::endl;
+
   return 0;
 }
