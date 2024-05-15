@@ -4,10 +4,10 @@
 __global__
 void add(int n, float *x, float *y)
 {
-  int index = blockIdx.x * blockDim.x + threadIdx.x;
-  int stride = blockDim.x * gridDim.x;
+  int index = threadIdx.x;
+  int stride = blockDim.x;
   for (int i = index; i < n; i += stride)
-    y[i] = x[i] + y[i];
+      y[i] = x[i] + y[i];
 }
 
 int main(void)
@@ -24,6 +24,12 @@ int main(void)
     x[i] = 1.0f;
     y[i] = 2.0f;
   }
+  
+  int deviceID = 0;
+
+  cudaMemPrefetchAsync((void *)x, N*sizeof(float), deviceID);
+
+  cudaMemPrefetchAsync((void *)y, N*sizeof(float), deviceID);
 
   int blockSize = 256;
   int numBlocks = (N + blockSize - 1) / blockSize;
